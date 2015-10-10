@@ -577,6 +577,22 @@ class WorkerClass(Setting):
         can also load the gevent class with ``egg:gunicorn#gevent``.
         """
 
+
+class WorkerConfig(Setting):
+    name = "worker_config"
+    section = "Worker Processes"
+    cli = ["--worker-config"]
+    validator = validate_dict
+    desc = """\
+        Additional config of worker.
+
+        It should be a dict, and will be passed to the worker's __init__
+        method.
+
+        eg: ``{'server_config': {'xheaders': True}}``
+        """
+
+
 class WorkerThreads(Setting):
     name = "threads"
     section = "Worker Processes"

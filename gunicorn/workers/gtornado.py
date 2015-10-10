@@ -101,11 +101,13 @@ class TornadoWorker(Worker):
 
             server_class = _HTTPServer
 
+        server_config = self.cfg.worker_config.server_config
+
         if self.cfg.is_ssl:
             server = server_class(app, io_loop=self.ioloop,
-                    ssl_options=self.cfg.ssl_options)
+                    ssl_options=self.cfg.ssl_options, **server_config)
         else:
-            server = server_class(app, io_loop=self.ioloop)
+            server = server_class(app, io_loop=self.ioloop, **server_config)
 
         self.server = server
         self.server_alive = True
